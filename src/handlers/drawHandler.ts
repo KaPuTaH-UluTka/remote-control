@@ -1,5 +1,6 @@
 import { down, left, mouse, right, up } from '@nut-tree/nut-js';
 import { validCommands } from '../utils/commands';
+import { printScreen } from '../utils/printScreen';
 
 export const drawHandler = async (command: string, params: string[]) => {
   const [first, second] = params.map(Number);
@@ -22,6 +23,8 @@ export const drawHandler = async (command: string, params: string[]) => {
     return mouse.move(right(first));
   } else if (command === validCommands[4]) {
     const { x, y } = await mouse.getPosition();
-    return `{${x},${y}`;
+    return `{${x},${y}}`;
+  } else if (command === validCommands[8]) {
+    return await printScreen();
   }
 };

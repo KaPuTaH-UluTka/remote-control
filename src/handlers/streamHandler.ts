@@ -12,18 +12,18 @@ export const streamHandler = (duplex: Duplex) => {
       while (null !== (chunk = duplex.read())) {
         data += chunk;
       }
-
+      let result;
       const [command, ...params] = data.split(' ');
       console.log(command);
       if (validCommands.includes(command)) {
-        await drawHandler(command, params);
+        result = await drawHandler(command, params);
       } else {
         throw new Error(`${command} command not found`);
       }
 
-      console.log(`got a message: ${data}`);
+      console.log(`Message: ${data}`);
 
-      duplex.write(`${command}`);
+      duplex.write(`${command} ${result}`);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
