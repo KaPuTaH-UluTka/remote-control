@@ -14,7 +14,6 @@ export const streamHandler = (duplex: Duplex) => {
       }
       let result;
       const [command, ...params] = data.split(' ');
-      console.log(command);
       if (validCommands.includes(command)) {
         result = await drawHandler(command, params);
       } else {
