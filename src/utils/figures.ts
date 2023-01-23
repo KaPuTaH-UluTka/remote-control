@@ -1,6 +1,8 @@
 import { Button, down, left, mouse, Point, right, straightTo, up } from '@nut-tree/nut-js';
+import { circleChecker, rectangleChecker } from './figureOutOfScreenChecker';
 
 export const circle = async (radius: number) => {
+  await circleChecker(radius);
   const rad = 0.0175;
 
   const { x, y } = await mouse.getPosition();
@@ -21,6 +23,7 @@ export const circle = async (radius: number) => {
 };
 
 export const rectangle = async (width: number, length = width) => {
+  await rectangleChecker(width, length);
   await mouse.pressButton(Button.LEFT);
 
   await mouse.move(right(width));
