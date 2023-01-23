@@ -5,7 +5,6 @@ import { circle, rectangle } from '../utils/figures';
 
 export const drawHandler = async (command: string, params: string[]) => {
   const [first, second] = params.map(Number);
-
   if (command === validCommands[0]) {
     if (second) {
       return mouse.move(up(second));
