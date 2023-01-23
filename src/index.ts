@@ -18,4 +18,13 @@ export const wsServer = new WebSocketServer({ port: WS_PORT });
 
 wsServer.on('connection', onConnect());
 
-wsServer.on('close', () => {});
+process.on('SIGINT', () => {
+  wsServer.clients.forEach((socket) => {
+    socket.close();
+  });
+
+  wsServer.close();
+  httpServer.close();
+
+  console.log('Server closed');
+});

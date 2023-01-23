@@ -1,22 +1,11 @@
 import { IncomingMessage } from 'http';
-import { ExtendedWebSocket } from '../types/types';
-import { createWebSocketStream } from 'ws';
+import { createWebSocketStream, WebSocket } from 'ws';
 import { streamHandler } from './streamHandler';
 
 export const onConnect = () => {
-  return async (ws: ExtendedWebSocket, req: IncomingMessage) => {
+  return async (ws: WebSocket, req: IncomingMessage) => {
     const user = `${req.socket.remoteAddress}:${req.socket.remotePort}`;
     console.log(`New connection: ${user}`);
-
-    ws.on('close', () => {
-      console.log(`User ${user} is out`);
-    });
-
-    ws.isExist = true;
-
-    ws.on('pong', () => {
-      ws.isExist = true;
-    });
 
     const duplex = createWebSocketStream(ws, {
       encoding: 'utf8',

@@ -1,4 +1,4 @@
-import { Button, mouse, Point, straightTo } from '@nut-tree/nut-js';
+import { Button, down, left, mouse, Point, right, straightTo, up } from '@nut-tree/nut-js';
 
 export const circle = async (radius: number) => {
   const rad = 0.0175;
@@ -16,6 +16,17 @@ export const circle = async (radius: number) => {
     const point = new Point(x - radius + dx, y + dy);
     await mouse.move(straightTo(point));
   }
+
+  await mouse.releaseButton(Button.LEFT);
+};
+
+export const rectangle = async (width: number, length = width) => {
+  await mouse.pressButton(Button.LEFT);
+
+  await mouse.move(right(width));
+  await mouse.move(down(length));
+  await mouse.move(left(width));
+  await mouse.move(up(length));
 
   await mouse.releaseButton(Button.LEFT);
 };
